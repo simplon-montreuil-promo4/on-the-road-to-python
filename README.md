@@ -475,3 +475,222 @@ Il permet également de renvoyer plusieurs valeurs lors d'un appel d'une fonctio
 On utilisera un tuple pour définir des sortes de constantes qui n'ont donc pas vocation à changer.
 ___
 #Les dictionnaires:
+Un dictionnaire en python est une sorte de liste mais au lieu d'utiliser des index, on utilise des clés, c'est à dire des valeurs autres que numériques.
+
+###Comment créer un dictionnaire?
+Pour initialiser un dictionnaire, on utile la syntaxe suivante:
+
+	>>> a = {}
+###Comment ajouter des valeurs dans un dictionnaire?
+Pour ajouter des valeurs à un dictionnaire il faut indiquer une clé ainsi qu'une valeur:
+
+	>>> a = {}
+	>>> a["nom"] = "engel"
+	>>> a["prenom"] = "olivier"
+	>>> a
+	{'nom': 'engel', 'prenom': 'olivier'}
+Vous pouvez utiliser des clés numériques comme dans la logique des listes.
+###Récupérer une valeur dans un dictionnaire
+La méthode get vous permet de récupérer une valeur dans un dictionnaire et si la clé est introuvable, vous pouvez donner une valeur à retourner par défaut:
+
+	>>> data = {"name": "Olivier", "age": 30}
+	>>> data.get("name")
+	'Olivier'
+	>>> data.get("adresse", "Adresse inconnue")
+	'Adresse inconnue'
+Vérifier la présence d'une clé dans un dictionnaire
+Vous pouvez utiliser la méthode haskey pour vérifier la présence d'une clé que vous cherchez:
+
+	>>> a.has_key("nom")
+	True
+###Supprimer une entrée de dictionnaire
+Il est possible de supprimer une entrée en indiquant sa clé, comme pour les listes:
+
+	>>> del a["nom"]
+	>>> a
+	{'prenom': 'olivier'}
+###Récupérer les clés par une boucle
+Pour récupérer les clés on utilise la méthode `keys`
+
+	>>> fiche = {"nom":"engel","prenom":"olivier"}
+	>>> for cle in fiche.keys():
+	...     print cle
+	... 
+	nom
+	prenom
+###Récupérer les valeurs par une boucle
+Pour cela on utilise la méthode `values`
+
+	>>> fiche = {"nom":"engel","prenom":"olivier"}
+	>>> for valeur in fiche.values():
+	...     print valeur
+	... 
+	engel
+	olivier
+###Récupérer les clés et les valeurs par une boucle
+Pour récupérer les clés et les valeurs en même temps, on utilise la méthode `items` qui retourne un tuple.
+
+	>>> fiche = {"nom":"engel","prenom":"olivier"}
+	>>> for cle,valeur in fiche.items():
+	...     print cle, valeur
+	... 
+	nom engel
+	prenom olivier
+###Utiliser des tuples comme clé
+Une des forces de python est la combinaison tuple/dictionnaire qui fait des merveilles dans certains cas comme lors de l'utilisation de coordonnées.
+
+	>>> b = {}
+	>>> b[(3,2)]=12
+	>>> b[(4,5)]=13
+	>>> b
+	{(4, 5): 13, (3, 2): 12}
+###Créer une copie indépendante d'un dictionnaire
+Comme pour toute variable, vous ne pouvez pas copier un dictionnaire en faisant dic1 = dic2:
+
+	>>> d = {"k1":"olivier", "k2":"engel"}
+	>>> e = d
+	>>> d["k1"] = "XXX"
+	>>> e
+	{'k2': 'engel', 'k1': 'XXX'}
+###Pour créer une copie indépendante vous pouvez utiliser la méthode `copy`:
+
+	>>> d = {"k1":"olivier", "k2":"engel"}
+	>>> e = d.copy()
+	>>> d["k1"] = "XXX"
+	>>> e
+	{'k2': 'engel', 'k1': 'olivier'}
+___
+#Les fonctions:
+
+Une `fonction` (ou function) est une suite d'instructions que l'on peut appeler avec un nom.
+
+###Créer ma première fonction
+Créons une fonction qui nous retournera un âge:
+
+	>>> def indique_mon_age():
+	...     return 30;
+	... 
+	>>> indique_mon_age()
+	30
+Vous ne pouvez pas copier coller ce code, vous devez entrer chaque ligne à la main et appuyer sur entrée pour retourner à la ligne. Les 3 chevrons et les 3 points sont affichés par l'interpréteur python.
+
+Tout d'abord pour indiquer à l'interpréteur que vous voulez créer une fonction, on utiliser le mot clé `def` suivi d'un nom puis de parenthèses et ensuite d'un double point.
+
+On remarque également qu'il y a un espace entre les 3 points et le mot clé "return", il s'agit d'une indentation, c'est à dire un espace qui améliore non seulement la lecture de la fonction mais qui indique que nous sommes toujours dans la fonction. Lorsque l'action demandée n'est plus dans la fonction, il ne faut plus indenter le texte. Pour indenter du texte, vous devez appuyer sur la `touche TAB` de votre clavier -ou dans d'autres cas créer 4 espaces manuellement.
+
+###Les paramètres
+Créons une autre fonction:
+
+	>>> def augmente_moi(a):
+	...     return augmente_moi + 2
+	... 
+	>>> augmente_moi(1)
+	3
+Cette fonction incrémente de 2 une valeur que l'on passe en paramètre.
+
+Il est d'ailleurs possible d'utiliser plusieurs paramètres:
+
+	>>> def augmente_moi(a, b):
+	...     return 30 + a + b
+	... 
+	>>> augmente_moi(1, 2)
+	33
+Si vous avez compris les principes des fonctions, vous avez compris 80% de ce qu'est la programmation.
+
+###Un paramètre est obligatoire
+Lorsque vous indiquez des paramètres à une fonction, ces dernièrs doivent impérativement être renseignés sans quoi une erreur apparaitra.
+
+	>>> def augmente_moi(a, b):
+	...     return 30 + a + b
+	...
+	>>> augmente_moi(1)
+	Traceback (most recent call last):
+  	File "<stdin>", line 1, in <module>
+	TypeError: augmente_moi() takes exactly 2 arguments (1 given)
+
+###L'opérateur splat
+L'opérateur splat : `*` est très souvent utilisé en python.
+
+	def ma_function(*var)
+	def ma_function(**var)
+	ma_function(*var)
+	ma_function(**var)
+###Une liste en paramètre
+On peut récupérer les valeurs renseignées via une liste:
+
+	>>> def augmente_moi(*param):
+	...     return param[0] + param[1] + param[2]
+	... 
+	>>> augmente_moi(1, 2, 3)
+	6
+	>>> augmente_moi(10, 20, 30)
+	60
+###Rendre obligatoire uniquement certains paramètres avec une liste
+Si vous désirez rendre obligatoire uniquement certains paramètres, vous pouvez utiliser la syntaxe suivante:
+
+	>>> def ma_fiche(prenom, nom, *reste):
+	...     return prenom + " " + nom 
+	... 
+	>>> ma_fiche("olivier","engel")
+	'olivier engel'
+
+On remarque que le paramètres "reste" est précédé d'une étoile `*`.
+###Utiliser un dictionnaire pour les paramètres
+Vous pouvez utiliser un dictionnaire en paramètres pour cela vous devez ajouter une double étoile: `**`
+
+	>>> def ma_fiche(**parametres):
+	...     return parametres["prenom"]
+	...
+	>>> ma_fiche(prenom="olivier")
+	'olivier'
+###Utilisation de splat liste au niveau des appels de fonctions
+Reprennons l'exemple de la fonction augmente_moi:
+
+	>>> def augmente_moi(*param):
+	...     return param[0] + param[1] + param[2]
+	... 
+###Nous avons vu qu'il était possible de faire ceci:
+
+	>>> augmente_moi(1, 2, 3)
+	6
+L'utilisation de l'étoile permet de passer par une liste:
+
+	>>> data = [1, 2, 3]
+	>>> augmente_moi(*data)
+	6
+###Utilisation de splat dictionnaire au niveau des appels de fonctions
+Prénons l'exemple de cette fonction:
+
+	>>> def test(firstname="", lastname=""):
+	...     return "{} {}" .format(firstname, lastname)
+	Créons notre dictionnaire:
+
+	>>> data = {'firstname':'olivier', 'lastname':'engel'}
+Et envoyons notre variable avec une étoile `*`
+
+	>>> test(*data)
+	'lastname firstname'
+Puis avec deux étoiles `**`
+
+	>>> test(**data)
+	'olivier engel'
+###Portée des variables (variable globale et variable locale)
+Une variable déclarée à la racine d'un module est visible dans tout ce module. On parle alors de variable globale.
+
+	>>> x = "hello"
+	>>> def test():
+	...     print x
+	... 
+	>>> test()
+	hello
+Et une variable déclarée dans une fonction ne sera visible que dans cette fonction. On parle alors de variable locale.
+
+	>>> x = False
+	>>> def test():
+	...     x = "hello"
+	... 
+	>>> test()
+	>>> x
+	False
+###Procédure et fonctions
+Pour votre culture informatique sachez qu'une fonction n'est pas obligée de renvoyer une valeur, on parlera alors dans ce cas plutôt de procédure.
